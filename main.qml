@@ -19,8 +19,9 @@ Window {
             id: playersInfo
             columns: 2
 
-            Label {
-                text: "Player 1:"
+            TextField {
+                text: game.player
+                readOnly: true
             }
 
             TextField {
@@ -49,9 +50,11 @@ Window {
             spacing: 5
 
             Rectangle {
+                id: first
                 color: "#aa6666";
                 width: 50;
                 height: 50
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
