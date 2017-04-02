@@ -3,9 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 
 Window {
-    id: main
     visible: true
-    title: "Noughts and Crosses"
     minimumHeight: 300
     minimumWidth: 300
 
@@ -19,9 +17,8 @@ Window {
             id: playersInfo
             columns: 2
 
-            TextField {
-                text: game.player
-                readOnly: true
+            Label {
+                text: "Player 1:"
             }
 
             TextField {
@@ -59,7 +56,7 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         parent.color = 'red'
-                        console.log("Clicked 1 rect")
+                        console.log("Clicked rect # 1")
                     }
                 }
             }

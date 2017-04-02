@@ -4,7 +4,9 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    Player.cpp
+    Player.cpp \
+    Board.cpp \
+    GameLogic.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,4 +17,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    Player.h
+    Player.h \
+    Board.h \
+    GameLogic.h

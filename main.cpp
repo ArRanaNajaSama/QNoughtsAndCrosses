@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
+#include <QObject>
 
 #include "GameLogic.h"
 
@@ -13,6 +14,6 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("game", &game);
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/StartingWindow.qml")));
     return app.exec();
 }

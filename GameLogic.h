@@ -2,22 +2,17 @@
 
 #include <QObject>
 
-#include "Player.h"
-
 class GameLogic : public QObject
 {
     Q_OBJECT
 
 public:
+    GameLogic();
 
+    Q_INVOKABLE void pvpGameMode();
 
 signals:
 
-
-public slots:
-
-
 private:
-
 
 };

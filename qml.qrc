@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>StartingWindow.qml</file>
+        <file>PlayerVsPlayer.qml</file>
     </qresource>
 </RCC>
