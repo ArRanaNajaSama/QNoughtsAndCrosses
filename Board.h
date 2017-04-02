@@ -6,11 +6,11 @@
 class Board
 {
 public:
-    Board(QVector <QString>_field = QVector <QString>(9, "Empty"));
+    Board(QVector <int>_field = QVector <int>(9, 7));
 
-    QVector <QString> getField();
-    void setField(QString str, int i);
+    QVector<int> getField();
+    void setField(int x, int i);
 
 private:
-    QVector <QString> field;
+    QVector <int> field;
 };

@@ -21,7 +21,7 @@ Window {
             }
 
             TextField {
-                text: game.playerOneScore
+                text: "0"
                 readOnly: true
             }
 
@@ -69,6 +69,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 2 rect")
+                        game.getCellNumberFromQML(1)
                     }
                 }
             }
@@ -81,6 +82,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 3 rect")
+                        game.getCellNumberFromQML(2)
                     }
                 }
             }
@@ -93,6 +95,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 4 rect")
+                        game.getCellNumberFromQML(3)
                     }
                 }
             }
@@ -105,6 +108,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 5 rect")
+                        game.getCellNumberFromQML(4)
                     }
                 }
             }
@@ -117,6 +121,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 6 rect")
+                        game.getCellNumberFromQML(5)
                     }
                 }
             }
@@ -130,6 +135,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 7 rect")
+                        game.getCellNumberFromQML(6)
                     }
                 }
             }
@@ -142,6 +148,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 8 rect")
+                        game.getCellNumberFromQML(7)
                     }
                 }
             }
@@ -154,6 +161,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked 9 rect")
+                        game.getCellNumberFromQML(8)
                     }
                 }
             }
