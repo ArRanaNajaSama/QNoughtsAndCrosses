@@ -22,7 +22,7 @@ Window {
             }
 
             TextField {
-                text: "0"
+                text: game.playerOneScore
                 readOnly: true
             }
 
@@ -57,6 +57,7 @@ Window {
                     onClicked: {
                         parent.color = 'red'
                         console.log("Clicked rect # 1")
+                        game.getCellNumberFromQML(0)
                     }
                 }
             }
@@ -165,7 +166,7 @@ Window {
                 topMargin: 15
                 horizontalCenter: board.horizontalCenter
             }
-            text: "Player X turn!"
+            text: game.whoseTurn
             readOnly: true
         }
     }
