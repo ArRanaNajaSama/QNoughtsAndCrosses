@@ -3,15 +3,14 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 
 Window {
+    id: pvpWindow
     visible: true
     minimumHeight: 300
     minimumWidth: 300
 
     Item {
         id: root
-        anchors.fill: main
-        height: main.minimumHeight
-        width: main.minimumWidth
+        anchors.fill: parent
 
         Grid {
             id: playersInfo

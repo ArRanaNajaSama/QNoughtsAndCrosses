@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 
 Window {
-    id: main
+    id: mainWindow
     visible: true
     title: "Noughts and Crosses"
     minimumHeight: 300
@@ -15,10 +15,7 @@ Window {
 
     Item {
         id: root
-        anchors.fill: main
-        height: main.minimumHeight
-        width: main.minimumWidth
-
+        anchors.fill: parent
 
         Grid {
             anchors {
@@ -42,7 +39,7 @@ Window {
                     console.log("Mode: Player vs Player")
                     pageLoader.source = "PlayerVsPlayer.qml"
                     game.pvpGameMode()
-                    main.close()
+                    mainWindow.close()
                 }
             }
         }
