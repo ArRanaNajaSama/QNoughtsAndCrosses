@@ -19,7 +19,17 @@ void GameLogic::pvpGameMode()
 
     //initialize board, players.
     board = new Board();
+    Player player1, player2;
+    player1.setPscore(0);
+    player2.setPscore(0);
+    this->setScoreX(0);
+    this->setScoreO(0);
+    this->setWhoseTurn("X start game!");
     player = 1;
+    plTurn = 1;
+
+    // start new game
+    //this->gameLoop();
 }
 
 QString GameLogic::getWhoseTurn()
@@ -51,6 +61,45 @@ void GameLogic::setCurrCell(int _cell)
     }
 }
 
+int GameLogic::getScoreX()
+{
+    return scoreX;
+}
+
+void GameLogic::setScoreX(int x)
+{
+    if (scoreX != x)
+    {
+        scoreX = x;
+        emit scoreXChanged();
+    }
+}
+
+void GameLogic::updateScoreX(int x)
+{
+    scoreX += x;
+    emit scoreXChanged();
+}
+
+int GameLogic::getScoreO()
+{
+    return scoreO;
+}
+
+void GameLogic::setScoreO(int o)
+{
+    if (scoreO != o)
+    {
+        scoreO = o;
+        emit scoreOChanged();
+    }
+}
+
+void GameLogic::updateScoreO(int o)
+{
+    scoreO += o;
+    emit scoreOChanged();
+}
 
 
 void GameLogic::getCellNumberFromQML(int cell)
@@ -62,9 +111,12 @@ void GameLogic::getCellNumberFromQML(int cell)
 
 void GameLogic::gameLoop()
 {
-    qDebug() << "Player " << player << " turn";
     player = (player % 2) ? 1:2;
-    if (player == 1)
+    qDebug() << "Player " << player << " turn";
+
+    plTurn++;
+    plTurn = (plTurn % 2) ? 1:2;
+    if (plTurn == 1)
     {
         this->setWhoseTurn("X attack!");
     } else {
@@ -133,6 +185,7 @@ void GameLogic::gameLoop()
         qDebug() << "Invalid move!";
         player--;
     }
+
     player++;
 
     //after cell is filled we must check win
@@ -141,28 +194,40 @@ void GameLogic::gameLoop()
     {
         this->setWhoseTurn("X is winner!");
         qDebug() << "X is winner!";
+        //stop game
+        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+
         //increase X player score
-        //ask whether its new game or continue?
+        this->updateScoreX(1);
+
+        //continue / new game?
 
     } else if (winner == 2)
     {
         this->setWhoseTurn("O is winner!");
+        //stop game
+        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+
         //increase O player score
+        this->updateScoreO(1);
+
         //ask whether its new game or continue?
 
     } else if (winner == 0)
     {
         this->setWhoseTurn("Draw!");
-        //ask whether its new game or continue?
+
+        //stop game
+        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+
+        //continue / new game?
 
     }
-
 }
 
 
 int GameLogic::checkWinner()
 {
-
     for(int i = 1; i < 3; i++)
     {
         //for horizontal line
@@ -181,23 +246,22 @@ int GameLogic::checkWinner()
         {
             return i;
         }
-
-        //Draw check
-        int count = 0;
-        for (int i = 0; i < board->getField().size(); i++)
-        {
-            if (board->getField().at(i) != 7)
-            {
-                count++;
-            }
-        }
-        // if all field are filled
-        if(count == 9)
-        {
-            return 0;
-        }
-
-        return -1;
     }
+
+    //Draw check
+    int count = 0;
+    for (int i = 0; i < board->getField().size(); i++)
+    {
+        if (board->getField().at(i) != 7)
+        {
+            count++;
+        }
+    }
+    // if all field are filled
+    if(count == 9)
+    {
+        return 0;
+    }
+    return -1;
 
 }

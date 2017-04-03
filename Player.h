@@ -6,7 +6,7 @@ class Player
 public:
     Player(QString _pname = "Some John",
            QString _position = "X",
-           int _score = "0");
+           int _score = 0);
 
     QString getPname();
     void setPname(QString name);

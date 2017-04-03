@@ -21,7 +21,7 @@ Window {
             }
 
             TextField {
-                text: "0"
+                text: game.scoreX
                 readOnly: true
             }
 
@@ -30,7 +30,7 @@ Window {
             }
 
             TextField {
-                text: "0"
+                text: game.scoreO;
                 readOnly: true
             }
         }

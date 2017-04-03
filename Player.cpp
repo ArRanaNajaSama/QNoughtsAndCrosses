@@ -36,7 +36,7 @@ int Player::getPscore()
 
 void Player::setPscore(int sc)
 {
-    if (sc != score)
+    if (sc != pscore)
     {
         pscore = sc;
     }
