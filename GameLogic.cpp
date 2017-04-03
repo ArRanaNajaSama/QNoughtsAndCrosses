@@ -19,7 +19,7 @@ void GameLogic::pvpGameMode()
 
     //initialize board, players.
     board = new Board();
-    this->setCurrCell(7);
+    this->setCurrCell(35);
     Player player1, player2;
     player1.setPscore(0);
     player2.setPscore(0);
@@ -49,7 +49,6 @@ void GameLogic::setWhoseTurn(QString str)
         emit whoseTurnChanged();
     }
 }
-
 
 int GameLogic::getCurrCell()
 {
@@ -294,7 +293,7 @@ int GameLogic::checkWinner()
         //for horizontal line
         if (    (board->getField().at(0) == i && board->getField().at(1) == i && board->getField().at(2) == i) ||
                 (board->getField().at(3) == i && board->getField().at(4) == i && board->getField().at(5) == i) ||
-                (board->getField().at(3) == i && board->getField().at(4) == i && board->getField().at(5) == i) ||
+                (board->getField().at(6) == i && board->getField().at(7) == i && board->getField().at(8) == i) ||
 
                 //for vertical lines
                 (board->getField().at(0) == i && board->getField().at(3) == i && board->getField().at(6) == i) ||
