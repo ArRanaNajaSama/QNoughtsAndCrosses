@@ -12,6 +12,7 @@ Window {
         id: root
         anchors.fill: parent
 
+        // Players info
         Grid {
             id: playersInfo
             columns: 2
@@ -35,138 +36,48 @@ Window {
             }
         }
 
-        Grid {
+        //game board
+        Rectangle {
             id: board
             anchors {
                 top: playersInfo.bottom
                 topMargin: 15
                 centerIn: root
             }
-            columns: 3
-            spacing: 5
+            width: 160
+            height: 160
+            color: "black"
 
-            Rectangle {
-                id: first
-                color: "#aa6666";
-                width: 50;
-                height: 50
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked rect # 1")
-                        game.getCellNumberFromQML(0)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 2 rect")
-                        game.getCellNumberFromQML(1)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 3 rect")
-                        game.getCellNumberFromQML(2)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 4 rect")
-                        game.getCellNumberFromQML(3)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 5 rect")
-                        game.getCellNumberFromQML(4)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 6 rect")
-                        game.getCellNumberFromQML(5)
-                    }
-                }
-            }
+            Grid {
+                anchors.fill: parent
+                columns: 3
+                spacing: 5
 
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 7 rect")
-                        game.getCellNumberFromQML(6)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 8 rect")
-                        game.getCellNumberFromQML(7)
-                    }
-                }
-            }
-            Rectangle {
-                color: "#aa6666";
-                width: 50;
-                height: 50
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        parent.color = 'red'
-                        console.log("Clicked 9 rect")
-                        game.getCellNumberFromQML(8)
+                Repeater {
+                    model: 9
+
+                    Button {
+                        id: btn
+                        iconSource: "qrc:/placeholder.png"
+                        width: 50;
+                        height: 50
+                        onClicked: {
+                            console.log("Clicked rect #", index)
+                            game.getCellNumberFromQML(index)
+                            if (game.image == 1)
+                            {
+                                btn.iconSource = "qrc:/cross.png"
+                            } else {
+                                btn.iconSource = "qrc:/shape_circle.png"
+                            }
+                        }
                     }
                 }
             }
         }
 
+        //game dialog window
         TextField {
             anchors {
                 top: board.bottom
