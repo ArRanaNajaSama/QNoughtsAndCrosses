@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(QString _pname, QString _position) : pname(_pname), position(_position)
+Player::Player(QString _pname, QString _position, int _score) : pname(_pname), position(_position)
 {}
 
 QString Player::getPname()
@@ -27,4 +27,22 @@ void Player::setPosition(QString pos)
     {
         position = pos;
     }
+}
+
+int Player::getPscore()
+{
+    return pscore;
+}
+
+void Player::setPscore(int sc)
+{
+    if (sc != score)
+    {
+        pscore = sc;
+    }
+}
+
+void Player::updateScore(int up)
+{
+    pscore += up;
 }
