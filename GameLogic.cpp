@@ -10,7 +10,9 @@ GameLogic::GameLogic()
 }
 
 GameLogic::~GameLogic()
-{}
+{
+    delete board;
+}
 
 
 void GameLogic::pvpGameMode()
