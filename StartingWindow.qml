@@ -17,20 +17,22 @@ Window {
         id: root
         anchors.fill: parent
 
-        Grid {
+        Column {
             anchors {
                 horizontalCenter: root.horizontalCenter
                 verticalCenter: root.verticalCenter
             }
-            columns: 1
             spacing: 5
 
             Label {
                 text: "Noughts and Crosses"
+                font.pixelSize: 22
+
             }
 
             Label {
                 text: "Choose game mode"
+                font.pixelSize: 16
             }
 
             Button {

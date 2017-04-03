@@ -15,24 +15,28 @@ Window {
         // Players info
         Grid {
             id: playersInfo
+            anchors.horizontalCenter: parent.horizontalCenter
             columns: 2
+            spacing: 5
 
             Label {
                 text: "Player 1:"
+                font.pixelSize: 14
             }
 
-            TextField {
+            Label {
                 text: game.scoreX
-                readOnly: true
+                font.pixelSize: 14
             }
 
             Label {
                 text: "Player 2:"
+                font.pixelSize: 14
             }
 
-            TextField {
+            Label {
                 text: game.scoreO;
-                readOnly: true
+                font.pixelSize: 14
             }
         }
 

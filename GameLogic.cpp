@@ -19,17 +19,21 @@ void GameLogic::pvpGameMode()
 
     //initialize board, players.
     board = new Board();
+    this->setCurrCell(7);
     Player player1, player2;
     player1.setPscore(0);
     player2.setPscore(0);
+
+    //promote scores to qml
     this->setScoreX(0);
     this->setScoreO(0);
+
+    //anounce first turn
     this->setWhoseTurn("X start game!");
+
+    //set 1st turn
     player = 1;
     plTurn = 1;
-
-    // start new game
-    //this->gameLoop();
 }
 
 QString GameLogic::getWhoseTurn()
@@ -111,9 +115,11 @@ void GameLogic::getCellNumberFromQML(int cell)
 
 void GameLogic::gameLoop()
 {
+    //Identify whose turn is now
     qDebug() << "Player " << player << " turn";
-    qDebug() << "Current Cell is" << getCurrCell();
     player = (player % 2) ? 1:2;
+
+    //anounce player whose turn is
     plTurn++;
     plTurn = (plTurn % 2) ? 1:2;
     if (plTurn == 1)
