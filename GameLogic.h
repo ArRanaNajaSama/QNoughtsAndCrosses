@@ -17,6 +17,8 @@ public:
     Q_PROPERTY(int currCell READ getCurrCell WRITE setCurrCell NOTIFY currCellChanged)
     Q_PROPERTY(int scoreX READ getScoreX WRITE setScoreX NOTIFY scoreXChanged)
     Q_PROPERTY(int scoreO READ getScoreO WRITE setScoreO NOTIFY scoreOChanged)
+    Q_PROPERTY(int image READ getImage WRITE setImage NOTIFY imageChanged)
+
 
     QString getWhoseTurn();
     void setWhoseTurn(QString str);
@@ -37,6 +39,9 @@ public:
 
     int checkWinner();
 
+    int getImage();
+    void setImage(int _img);
+
 public slots:
     void getCellNumberFromQML(int cell);
     void gameLoop();
@@ -46,6 +51,7 @@ signals:
     void currCellChanged();
     void scoreXChanged();
     void scoreOChanged();
+    void imageChanged();
 
 private:
     int currCell;
@@ -56,5 +62,6 @@ private:
     int scoreX;
     int scoreO;
     int plTurn;
+    int image;
 
 };

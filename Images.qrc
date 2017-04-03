@@ -1,3 +1,7 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>shape_circle.png</file>
+        <file>cross.png</file>
+        <file>placeholder.png</file>
+    </qresource>
 </RCC>

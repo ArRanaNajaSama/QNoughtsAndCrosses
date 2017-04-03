@@ -111,9 +111,9 @@ void GameLogic::getCellNumberFromQML(int cell)
 
 void GameLogic::gameLoop()
 {
-    player = (player % 2) ? 1:2;
     qDebug() << "Player " << player << " turn";
-
+    qDebug() << "Current Cell is" << getCurrCell();
+    player = (player % 2) ? 1:2;
     plTurn++;
     plTurn = (plTurn % 2) ? 1:2;
     if (plTurn == 1)
@@ -125,6 +125,7 @@ void GameLogic::gameLoop()
 
     //marker for cells
     int mark = (player == 1)? 1:2;
+    qDebug() << "mark " << mark;
 
     //Logic for filling border
     if (getCurrCell() == 0)
@@ -132,54 +133,108 @@ void GameLogic::gameLoop()
         if(board->getField().at(0) == 7)
         {
             board->setField(mark, 0);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     } else if (getCurrCell() == 1)
     {
         if(board->getField().at(1) == 7)
         {
             board->setField(mark, 1);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     }else if (getCurrCell() == 2)
     {
         if(board->getField().at(2) == 7)
         {
             board->setField(mark, 2);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     } else if (getCurrCell() == 3)
     {
         if(board->getField().at(3) == 7)
         {
             board->setField(mark, 3);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     }else if (getCurrCell() == 4)
     {
         if(board->getField().at(4) == 7)
         {
             board->setField(mark, 4);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     }else if (getCurrCell() == 5)
     {
         if(board->getField().at(5) == 7)
         {
             board->setField(mark, 5);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     }else if (getCurrCell() == 6)
     {
         if(board->getField().at(6) == 7)
         {
             board->setField(mark, 6);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     }else if (getCurrCell() == 7)
     {
         if(board->getField().at(7) == 7)
         {
             board->setField(mark, 7);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     }else if (getCurrCell() == 8)
     {
         if(board->getField().at(8) == 7)
         {
             board->setField(mark, 8);
+            if (mark == 1)
+            {
+                this->setImage(1);
+            } else {
+                this->setImage(2);
+            }
         }
     } else {
         qDebug() << "Invalid move!";
@@ -264,4 +319,18 @@ int GameLogic::checkWinner()
     }
     return -1;
 
+}
+
+int GameLogic::getImage()
+{
+    return image;
+}
+
+void GameLogic::setImage(int _img)
+{
+    if (image != _img)
+    {
+        image = _img;
+        emit imageChanged();
+    }
 }
