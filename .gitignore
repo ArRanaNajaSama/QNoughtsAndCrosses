@@ -1,3 +1,5 @@
 #Debug and Release folders
 debug/
 release/
+.debug
+.release
