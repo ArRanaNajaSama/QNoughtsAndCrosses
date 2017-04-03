@@ -5,8 +5,8 @@ import QtQuick.Controls 1.4
 Window {
     id: pvpWindow
     visible: true
-    minimumHeight: 300
-    minimumWidth: 300
+    minimumHeight: 350
+    minimumWidth: 350
 
     Item {
         id: root
@@ -45,13 +45,11 @@ Window {
             id: board
             anchors {
                 top: playersInfo.bottom
-                topMargin: 15
                 centerIn: root
             }
             width: 160
             height: 160
             color: "black"
-
 
             Grid {
                 anchors.fill: parent
