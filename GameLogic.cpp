@@ -36,6 +36,35 @@ void GameLogic::pvpGameMode()
     //set 1st turn
     player = 1;
     nextTurn = 1;
+
+
+}
+
+void GameLogic::newGameMode()
+{
+    qDebug() << "New Game mode";
+    //clean board and create new one
+    delete board;
+    board = new Board();
+
+    for (int i = 0; i < board->getField().size(); i++)
+    {
+        if(board->getField().at(0) == 7)
+        {
+            this->setImage(7);
+        }
+    }
+
+    //anounce first turn
+    this->setWhoseTurn("X start game!");
+
+    //set 1st turn
+    player = 1;
+    nextTurn = 1;
+
+    //connect back signal and slot
+    QObject::connect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+
 }
 
 QString GameLogic::getWhoseTurn()
@@ -106,10 +135,18 @@ void GameLogic::updateScoreO(int o)
     emit scoreOChanged();
 }
 
-
-void GameLogic::getCellNumberFromQML(int cell)
+int GameLogic::getImage()
 {
-    this->setCurrCell(cell);
+    return image;
+}
+
+void GameLogic::setImage(int _img)
+{
+    if (image != _img)
+    {
+        image = _img;
+        emit imageChanged();
+    }
 }
 
 void GameLogic::gameLoop()
@@ -200,10 +237,9 @@ void GameLogic::gameLoop()
         qDebug() << "Invalid move!";
         player--;
     }
-
     player++;
 
-    //after cell is filled we must check win
+    //after cell is filled we must check win and anounce if there is any
     int winner = checkWinner();
     this->anounceWinner(winner);
 }
@@ -252,6 +288,7 @@ int GameLogic::checkWinner()
 void GameLogic::anounceWinner(int win)
 {
     switch (win) {
+
     case 0:
         //anounce the draw
         this->setWhoseTurn("Draw!");
@@ -259,6 +296,7 @@ void GameLogic::anounceWinner(int win)
         //prevent further point count
         QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
         break;
+
     case 1:
         //anounce that X is winner
         qDebug() << "X is winner!";
@@ -270,6 +308,7 @@ void GameLogic::anounceWinner(int win)
         //prevent further point count
         QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
         break;
+
     case 2:
         //anounce that O is winner
         qDebug() << "O is winner!";
@@ -281,22 +320,11 @@ void GameLogic::anounceWinner(int win)
         //prevent further point count
         QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
         break;
+
     default:
         qDebug() << "Continue game";
         break;
     }
 }
 
-int GameLogic::getImage()
-{
-    return image;
-}
 
-void GameLogic::setImage(int _img)
-{
-    if (image != _img)
-    {
-        image = _img;
-        emit imageChanged();
-    }
-}

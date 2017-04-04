@@ -19,7 +19,6 @@ public:
     Q_PROPERTY(int scoreO READ getScoreO WRITE setScoreO NOTIFY scoreOChanged)
     Q_PROPERTY(int image READ getImage WRITE setImage NOTIFY imageChanged)
 
-
     QString getWhoseTurn();
     void setWhoseTurn(QString str);
 
@@ -44,9 +43,12 @@ public:
     int getImage();
     void setImage(int _img);
 
+    bool getFocus();
+    void setFocus(bool b);
+
 public slots:
-    void getCellNumberFromQML(int cell);
     void gameLoop();
+    void newGameMode();
 
 signals:
     void whoseTurnChanged();
@@ -54,6 +56,7 @@ signals:
     void scoreXChanged();
     void scoreOChanged();
     void imageChanged();
+    void newGameChanged();
 
 private:
     int currCell;
@@ -65,5 +68,4 @@ private:
     int scoreO;
     int nextTurn;
     int image;
-
 };

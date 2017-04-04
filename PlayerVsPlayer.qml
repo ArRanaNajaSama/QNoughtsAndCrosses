@@ -21,22 +21,22 @@ Window {
 
             Label {
                 text: "Player 1:"
-                font.pixelSize: 14
+                font.pixelSize: 15
             }
 
             Label {
                 text: game.scoreX
-                font.pixelSize: 14
+                font.pixelSize: 15
             }
 
             Label {
                 text: "Player 2:"
-                font.pixelSize: 14
+                font.pixelSize: 15
             }
 
             Label {
                 text: game.scoreO;
-                font.pixelSize: 14
+                font.pixelSize: 15
             }
         }
 
@@ -57,22 +57,26 @@ Window {
                 spacing: 5
 
                 Repeater {
+                    id: repeater
                     model: 9
 
                     Button {
                         id: btn
+                        focus: true
                         iconSource: "qrc:/placeholder.png"
                         width: 50;
                         height: 50
                         onClicked: {
-                            console.log("Clicked rect #", index)
+                            console.log("Clicked button #", index)
                             game.currCell = index;
-                            //game.getCellNumberFromQML(index)
-                            if (game.image == 1)
+                            switch(game.image)
                             {
+                            case 1:
                                 btn.iconSource = "qrc:/cross.png"
-                            } else {
+                                break;
+                            case 2:
                                 btn.iconSource = "qrc:/shape_circle.png"
+                                break;
                             }
                         }
                     }
@@ -80,16 +84,26 @@ Window {
             }
         }
 
-        //game dialog window
-        TextField {
+        Column {
             anchors {
                 top: board.bottom
                 topMargin: 15
                 horizontalCenter: board.horizontalCenter
             }
-            text: game.whoseTurn
-            readOnly: true
-            selectByMouse: false
+            spacing: 5
+            //game dialog window
+            Label {
+
+                text: game.whoseTurn
+                font.pixelSize: 16
+            }
+
+            Button {
+                id: newGame
+                text: "New game"
+                onClicked: game.newGameMode()
+            }
         }
+
     }
 }
