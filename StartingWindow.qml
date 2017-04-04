@@ -6,8 +6,8 @@ Window {
     id: mainWindow
     visible: true
     title: "Noughts and Crosses"
-    minimumHeight: 300
-    minimumWidth: 300
+    height: 300
+    width: 300
 
     Loader {
         id: pageLoader

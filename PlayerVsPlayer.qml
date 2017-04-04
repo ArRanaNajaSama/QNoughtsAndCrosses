@@ -5,8 +5,8 @@ import QtQuick.Controls 1.4
 Window {
     id: pvpWindow
     visible: true
-    minimumHeight: 350
-    minimumWidth: 350
+    height: 350
+    width: 350
 
     Item {
         id: root
@@ -66,7 +66,8 @@ Window {
                         height: 50
                         onClicked: {
                             console.log("Clicked rect #", index)
-                            game.getCellNumberFromQML(index)
+                            game.currCell = index;
+                            //game.getCellNumberFromQML(index)
                             if (game.image == 1)
                             {
                                 btn.iconSource = "qrc:/cross.png"
@@ -88,6 +89,7 @@ Window {
             }
             text: game.whoseTurn
             readOnly: true
+            selectByMouse: false
         }
     }
 }
