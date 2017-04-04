@@ -13,15 +13,12 @@ public:
     ~GameLogic();
 
     Q_INVOKABLE void pvpGameMode();
+
     Q_PROPERTY(QString whoseTurn READ getWhoseTurn WRITE setWhoseTurn NOTIFY whoseTurnChanged)
     Q_PROPERTY(int currCell READ getCurrCell WRITE setCurrCell NOTIFY currCellChanged)
     Q_PROPERTY(int scoreX READ getScoreX WRITE setScoreX NOTIFY scoreXChanged)
     Q_PROPERTY(int scoreO READ getScoreO WRITE setScoreO NOTIFY scoreOChanged)
     Q_PROPERTY(int image READ getImage WRITE setImage NOTIFY imageChanged)
-    Q_PROPERTY(bool mouseAreaEnable READ getMouseAreaEnable WRITE setMouseAreaEnable NOTIFY mouseAreaEnableChanged)
-
-    bool getMouseAreaEnable();
-    void setMouseAreaEnable(bool _m);
 
     QString getWhoseTurn();
     void setWhoseTurn(QString str);
@@ -67,7 +64,6 @@ private:
     QString whoseTurn;
     Board *board;
     int player;
-    QString playerName;
     int scoreX;
     int scoreO;
     int nextTurn;

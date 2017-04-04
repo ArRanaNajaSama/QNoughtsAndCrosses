@@ -62,7 +62,6 @@ Window {
 
                     Button {
                         id: btn
-                        enabled: true
                         focus: true
                         iconSource: "qrc:/placeholder.png"
                         width: 50;

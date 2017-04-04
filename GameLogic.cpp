@@ -38,20 +38,6 @@ void GameLogic::pvpGameMode()
     nextTurn = 1;
 }
 
-bool GameLogic::getMouseAreaEnable()
-{
-    return mouseAreaEnable;
-}
-
-void GameLogic::setMouseAreaEnable(bool _m)
-{
-    if(_m != mouseAreaEnable)
-    {
-        mouseAreaEnable = _m;
-        emit mouseAreaEnableChanged();
-    }
-}
-
 void GameLogic::newGameMode()
 {
     qDebug() << "New Game mode";
@@ -245,8 +231,8 @@ void GameLogic::anounceWinner(int win)
         //prevent further point count
         QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
 
-        //disable MouseArea
-        this->setMouseAreaEnable(false);
+        //disable button
+
         break;
 
     case 1:
