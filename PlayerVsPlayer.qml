@@ -103,7 +103,7 @@ Window {
 
             Button {
                 id: newGame
-                text: "New game"
+                text: "New Game"
                 onClicked: game.newGameMode()
             }
         }
