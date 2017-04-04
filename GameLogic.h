@@ -18,6 +18,10 @@ public:
     Q_PROPERTY(int scoreX READ getScoreX WRITE setScoreX NOTIFY scoreXChanged)
     Q_PROPERTY(int scoreO READ getScoreO WRITE setScoreO NOTIFY scoreOChanged)
     Q_PROPERTY(int image READ getImage WRITE setImage NOTIFY imageChanged)
+    Q_PROPERTY(bool mouseAreaEnable READ getMouseAreaEnable WRITE setMouseAreaEnable NOTIFY mouseAreaEnableChanged)
+
+    bool getMouseAreaEnable();
+    void setMouseAreaEnable(bool _m);
 
     QString getWhoseTurn();
     void setWhoseTurn(QString str);
@@ -56,6 +60,7 @@ signals:
     void scoreXChanged();
     void scoreOChanged();
     void imageChanged();
+    void mouseAreaEnableChanged();
 
 private:
     int currCell;
@@ -67,4 +72,5 @@ private:
     int scoreO;
     int nextTurn;
     int image;
+    bool mouseAreaEnable;
 };

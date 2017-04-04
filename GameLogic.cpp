@@ -21,7 +21,7 @@ void GameLogic::pvpGameMode()
 
     //initialize board, players.
     board = new Board();
-    this->setCurrCell(35);
+    this->setCurrCell(-1);
     Player player1, player2;
     player1.setPscore(0);
     player2.setPscore(0);
@@ -38,21 +38,27 @@ void GameLogic::pvpGameMode()
     nextTurn = 1;
 }
 
+bool GameLogic::getMouseAreaEnable()
+{
+    return mouseAreaEnable;
+}
+
+void GameLogic::setMouseAreaEnable(bool _m)
+{
+    if(_m != mouseAreaEnable)
+    {
+        mouseAreaEnable = _m;
+        emit mouseAreaEnableChanged();
+    }
+}
+
 void GameLogic::newGameMode()
 {
     qDebug() << "New Game mode";
     //clean board and create new one
     delete board;
     board = new Board();
-    this->setCurrCell(35);
-
-    for (int i = 0; i < board->getField().size(); i++)
-    {
-        if(board->getField().at(0) == 7)
-        {
-            this->setImage(7);
-        }
-    }
+    this->setCurrCell(-1);
 
     //anounce first turn
     this->setWhoseTurn("X start game!");
@@ -169,75 +175,16 @@ void GameLogic::gameLoop()
     qDebug() << "mark " << mark;
 
     //Logic for filling border with X/O
-    switch (currCell)
+    if (currCell > 8 || currCell < 0)
     {
-        case 0:
-        if(board->getField().at(0) == 7)
-        {
-            board->setField(mark, 0);
-            this->setImage(mark);
-        }
-        break;
-    case 1:
-        if(board->getField().at(1) == 7)
-        {
-            board->setField(mark, 1);
-            this->setImage(mark);
-        }
-        break;
-    case 2:
-        if(board->getField().at(2) == 7)
-        {
-            board->setField(mark, 2);
-            this->setImage(mark);
-        }
-        break;
-    case 3:
-        if(board->getField().at(3) == 7)
-        {
-            board->setField(mark, 3);
-            this->setImage(mark);
-        }
-        break;
-     case 4:
-        if(board->getField().at(4) == 7)
-        {
-            board->setField(mark, 4);
-            this->setImage(mark);
-        }
-        break;
-     case 5:
-        if(board->getField().at(5) == 7)
-        {
-            board->setField(mark, 5);
-            this->setImage(mark);
-        }
-        break;
-     case 6:
-        if(board->getField().at(6) == 7)
-        {
-            board->setField(mark, 6);
-            this->setImage(mark);
-        }
-        break;
-     case 7:
-        if(board->getField().at(7) == 7)
-        {
-            board->setField(mark, 7);
-            this->setImage(mark);
-        }
-        break;
-     case 8:
-        if(board->getField().at(8) == 7)
-        {
-            board->setField(mark, 8);
-            this->setImage(mark);
-        }
-        break;
-      default:
         qDebug() << "Invalid move!";
         player--;
-        break;
+    } else {
+        if(board->getField().at(currCell) == 7)
+        {
+            board->setField(mark, currCell);
+            setImage(mark);
+        }
     }
     player++;
 
@@ -297,6 +244,9 @@ void GameLogic::anounceWinner(int win)
 
         //prevent further point count
         QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+
+        //disable MouseArea
+        this->setMouseAreaEnable(false);
         break;
 
     case 1:

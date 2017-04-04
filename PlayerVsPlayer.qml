@@ -20,7 +20,7 @@ Window {
             spacing: 5
 
             Label {
-                text: "Player 1:"
+                text: "Player X:"
                 font.pixelSize: 15
             }
 
@@ -30,7 +30,7 @@ Window {
             }
 
             Label {
-                text: "Player 2:"
+                text: "Player O:"
                 font.pixelSize: 15
             }
 
@@ -62,6 +62,7 @@ Window {
 
                     Button {
                         id: btn
+                        enabled: true
                         focus: true
                         iconSource: "qrc:/placeholder.png"
                         width: 50;
@@ -102,9 +103,18 @@ Window {
             }
 
             Button {
-                id: newGame
-                text: "New Game"
-                onClicked: game.newGameMode()
+                Button {
+                    id: newGame
+                    text: "New game"
+                    onClicked: {
+                        game.newGameMode()
+
+                        for (var i = 0; i < 9; ++i)
+                        {
+                            repeater.itemAt(i).iconSource = "qrc:/placeholder.png"
+                        }
+                    }
+                }
             }
         }
 
