@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(QString _pname, QString _position, int _score) : pname(_pname), position(_position)
+Player::Player(QString _pname, QString _position, int _score) : pname(_pname), position(_position), pscore(_score)
 {}
 
 QString Player::getPname()
