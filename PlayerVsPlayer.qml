@@ -77,6 +77,9 @@ Window {
                             case 2:
                                 btn.iconSource = "qrc:/shape_circle.png"
                                 break;
+                            case 7:
+                                btn.iconSource = "qrc:/placeholder.png"
+                                break;
                             }
                         }
                     }

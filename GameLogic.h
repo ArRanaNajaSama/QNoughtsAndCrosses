@@ -56,7 +56,6 @@ signals:
     void scoreXChanged();
     void scoreOChanged();
     void imageChanged();
-    void newGameChanged();
 
 private:
     int currCell;

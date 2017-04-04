@@ -36,8 +36,6 @@ void GameLogic::pvpGameMode()
     //set 1st turn
     player = 1;
     nextTurn = 1;
-
-
 }
 
 void GameLogic::newGameMode()
@@ -46,6 +44,7 @@ void GameLogic::newGameMode()
     //clean board and create new one
     delete board;
     board = new Board();
+    this->setCurrCell(35);
 
     for (int i = 0; i < board->getField().size(); i++)
     {
@@ -170,72 +169,75 @@ void GameLogic::gameLoop()
     qDebug() << "mark " << mark;
 
     //Logic for filling border with X/O
-    if (currCell == 0)
+    switch (currCell)
     {
+        case 0:
         if(board->getField().at(0) == 7)
         {
             board->setField(mark, 0);
             this->setImage(mark);
         }
-    } else if (currCell == 1)
-    {
+        break;
+    case 1:
         if(board->getField().at(1) == 7)
         {
             board->setField(mark, 1);
             this->setImage(mark);
         }
-    }else if (currCell == 2)
-    {
+        break;
+    case 2:
         if(board->getField().at(2) == 7)
         {
             board->setField(mark, 2);
             this->setImage(mark);
         }
-    } else if (currCell == 3)
-    {
+        break;
+    case 3:
         if(board->getField().at(3) == 7)
         {
             board->setField(mark, 3);
             this->setImage(mark);
         }
-    }else if (currCell == 4)
-    {
+        break;
+     case 4:
         if(board->getField().at(4) == 7)
         {
             board->setField(mark, 4);
             this->setImage(mark);
         }
-    }else if (currCell == 5)
-    {
+        break;
+     case 5:
         if(board->getField().at(5) == 7)
         {
             board->setField(mark, 5);
             this->setImage(mark);
         }
-    }else if (currCell == 6)
-    {
+        break;
+     case 6:
         if(board->getField().at(6) == 7)
         {
             board->setField(mark, 6);
             this->setImage(mark);
         }
-    }else if (currCell == 7)
-    {
+        break;
+     case 7:
         if(board->getField().at(7) == 7)
         {
             board->setField(mark, 7);
             this->setImage(mark);
         }
-    }else if (currCell == 8)
-    {
+        break;
+     case 8:
         if(board->getField().at(8) == 7)
         {
             board->setField(mark, 8);
             this->setImage(mark);
         }
-    } else {
+        break;
+      default:
         qDebug() << "Invalid move!";
         player--;
+        break;
     }
     player++;
 
