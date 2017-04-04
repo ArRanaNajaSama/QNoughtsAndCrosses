@@ -35,7 +35,7 @@ void GameLogic::pvpGameMode()
 
     //set 1st turn
     player = 1;
-    plTurn = 1;
+    nextTurn = 1;
 }
 
 QString GameLogic::getWhoseTurn()
@@ -109,21 +109,19 @@ void GameLogic::updateScoreO(int o)
 
 void GameLogic::getCellNumberFromQML(int cell)
 {
-    qDebug() << "Pressed cell number:" << cell;
     this->setCurrCell(cell);
-    qDebug() << "Current Cell is" << getCurrCell();
 }
 
 void GameLogic::gameLoop()
 {
     //Identify whose turn is now
-    qDebug() << "Player " << player << " turn";
     player = (player % 2) ? 1:2;
+    qDebug() << "Player " << player << " turn";
 
     //anounce player whose turn is
-    plTurn++;
-    plTurn = (plTurn % 2) ? 1:2;
-    if (plTurn == 1)
+    nextTurn++;
+    nextTurn = (nextTurn % 2) ? 1:2;
+    if (nextTurn == 1)
     {
         this->setWhoseTurn("X attack!");
     } else {
@@ -131,117 +129,72 @@ void GameLogic::gameLoop()
     }
 
     //marker for cells
-    int mark = (player == 1)? 1:2;
+    int mark = (player == 1) ? 1:2;
     qDebug() << "mark " << mark;
 
-    //Logic for filling border
-    if (getCurrCell() == 0)
+    //Logic for filling border with X/O
+    if (currCell == 0)
     {
         if(board->getField().at(0) == 7)
         {
             board->setField(mark, 0);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    } else if (getCurrCell() == 1)
+    } else if (currCell == 1)
     {
         if(board->getField().at(1) == 7)
         {
             board->setField(mark, 1);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    }else if (getCurrCell() == 2)
+    }else if (currCell == 2)
     {
         if(board->getField().at(2) == 7)
         {
             board->setField(mark, 2);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    } else if (getCurrCell() == 3)
+    } else if (currCell == 3)
     {
         if(board->getField().at(3) == 7)
         {
             board->setField(mark, 3);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    }else if (getCurrCell() == 4)
+    }else if (currCell == 4)
     {
         if(board->getField().at(4) == 7)
         {
             board->setField(mark, 4);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    }else if (getCurrCell() == 5)
+    }else if (currCell == 5)
     {
         if(board->getField().at(5) == 7)
         {
             board->setField(mark, 5);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    }else if (getCurrCell() == 6)
+    }else if (currCell == 6)
     {
         if(board->getField().at(6) == 7)
         {
             board->setField(mark, 6);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    }else if (getCurrCell() == 7)
+    }else if (currCell == 7)
     {
         if(board->getField().at(7) == 7)
         {
             board->setField(mark, 7);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
-    }else if (getCurrCell() == 8)
+    }else if (currCell == 8)
     {
         if(board->getField().at(8) == 7)
         {
             board->setField(mark, 8);
-            if (mark == 1)
-            {
-                this->setImage(1);
-            } else {
-                this->setImage(2);
-            }
+            this->setImage(mark);
         }
     } else {
         qDebug() << "Invalid move!";
@@ -252,39 +205,7 @@ void GameLogic::gameLoop()
 
     //after cell is filled we must check win
     int winner = checkWinner();
-    if (winner == 1)
-    {
-        this->setWhoseTurn("X is winner!");
-        qDebug() << "X is winner!";
-        //stop game
-        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
-
-        //increase X player score
-        this->updateScoreX(1);
-
-        //continue / new game?
-
-    } else if (winner == 2)
-    {
-        this->setWhoseTurn("O is winner!");
-        //stop game
-        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
-
-        //increase O player score
-        this->updateScoreO(1);
-
-        //ask whether its new game or continue?
-
-    } else if (winner == 0)
-    {
-        this->setWhoseTurn("Draw!");
-
-        //stop game
-        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
-
-        //continue / new game?
-
-    }
+    this->anounceWinner(winner);
 }
 
 
@@ -326,6 +247,44 @@ int GameLogic::checkWinner()
     }
     return -1;
 
+}
+
+void GameLogic::anounceWinner(int win)
+{
+    switch (win) {
+    case 0:
+        //anounce the draw
+        this->setWhoseTurn("Draw!");
+
+        //prevent further point count
+        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+        break;
+    case 1:
+        //anounce that X is winner
+        qDebug() << "X is winner!";
+        this->setWhoseTurn("X is winner!");
+
+        //update X player score
+        this->updateScoreX(1);
+
+        //prevent further point count
+        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+        break;
+    case 2:
+        //anounce that O is winner
+        qDebug() << "O is winner!";
+        this->setWhoseTurn("O is winner!");
+
+        //update X player score
+        this->updateScoreO(1);
+
+        //prevent further point count
+        QObject::disconnect(this, SIGNAL(currCellChanged()), this, SLOT(gameLoop()));
+        break;
+    default:
+        qDebug() << "Continue game";
+        break;
+    }
 }
 
 int GameLogic::getImage()

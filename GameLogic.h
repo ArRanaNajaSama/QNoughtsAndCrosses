@@ -32,12 +32,14 @@ public:
     int getScoreX();
     void setScoreX(int x);
     void updateScoreX(int x);
-    void updateScoreO(int o);
+
 
     int getScoreO();
     void setScoreO(int o);
+    void updateScoreO(int o);
 
     int checkWinner();
+    void anounceWinner(int win);
 
     int getImage();
     void setImage(int _img);
@@ -61,7 +63,7 @@ private:
     QString playerName;
     int scoreX;
     int scoreO;
-    int plTurn;
+    int nextTurn;
     int image;
 
 };
